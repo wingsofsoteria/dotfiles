@@ -1,0 +1,6 @@
+#!/bin/bash
+yt-dlp "$1" -x --audio-format m4a -o file.m4a
+ffmpeg -i "$2" -i file.m4a -map 1 -c copy -map_metadata 0 out.m4a
+rm file.m4a
+mv out.m4a "$2"
+mpc update
