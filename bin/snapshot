@@ -1,0 +1,16 @@
+#!/bin/bash
+SNAP=$1
+if [[ $SNAP == "/" ]]
+then
+SNAP_DIR=/home/root_$(date "+%Y%m%d_%H%M")
+else
+SNAP_DIR="/home/$(echo "$SNAP" | sed 's/\///g')_$(date "+%Y%m%d_%H%M")"
+fi
+echo "creating snapshot of $SNAP in $SNAP_DIR"
+echo -n "is this right? [Y/N]: "
+read input
+if [[ ${input^^} == "Y" ]]
+then
+echo "executing btrfs snapshot"
+sudo btrfs subv snapshot "$SNAP" "$SNAP_DIR" 
+fi

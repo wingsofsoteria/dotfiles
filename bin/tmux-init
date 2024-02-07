@@ -1,0 +1,34 @@
+#!/bin/bash
+if [ -n "$TMUX" ]
+then
+exit 178
+fi
+if [ $# -eq 0 ]
+then
+name="flort_0"
+else
+I=$1
+name="flort_${1}"
+fi
+
+
+if ! tmux new -s "$name" -d
+then
+    if tmux ls | grep "$name" | grep "attached"
+    then
+        (( I++ ))
+        "$HOME/bin/tmux.flort" $I
+        exit 0;
+    else
+	tmux attach -t "$name"
+    	exit 0;
+	fi
+fi
+
+if [[ $name == "flort_0" ]]
+then
+tmux source -t "flort_0" $ $HOME/.flortsession
+fi
+# tmux set-option -t "$name" -o mouse on
+
+tmux attach -t "$name"
