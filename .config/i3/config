@@ -1,0 +1,69 @@
+set $super Mod4
+set $alt Mod1
+floating_modifier $super
+
+exec --no-startup-id xrandr --output HDMI-A-0 --mode 1920x1080 --refresh 144 --left-of DisplayPort-0 &
+exec --no-startup-id xrandr --output DisplayPort-0 --mode 2560x1440 --refresh 144
+exec_always --no-startup-id autotiling
+
+exec_always --no-startup-id sleep 30 & hsetroot -fill ~/.wallpaper.jpg
+exec --no-startup-id sudo openrgb
+exec --no-startup-id qpwgraph
+
+bindsym $super+t exec xfce4-terminal
+bindsym $super+f exec firefox
+bindsym $alt+F4 kill
+bindsym $super+k kill
+bindsym $super+r reload
+bindsym $super+shift+r restart
+bindsym $super+shift+s exec xfce4-screenshooter -r
+
+
+bindsym F12 fullscreen toggle
+bindsym $super+shift+space focus mode_toggle
+bindsym $super+space floating toggle
+bindsym $super+h split h
+bindsym $super+v split v
+
+# change focus
+bindsym $super+Left focus left
+bindsym $super+Down focus down
+bindsym $super+Up focus up
+bindsym $super+Right focus right
+
+# move focused window
+bindsym $super+Shift+Left move left
+bindsym $super+Shift+Down move down
+bindsym $super+Shift+Up move up
+bindsym $super+Shift+Right move right
+
+bindsym $super+Control+Right workspace next
+bindsym $super+Control+Left workspace prev
+bindsym $super+1 workspace 1
+bindsym $super+2 workspace 2
+bindsym $super+3 workspace 3
+bindsym $super+4 workspace 4
+bindsym $super+5 workspace 5
+bindsym $super+6 workspace 6
+
+# move focused container to workspace
+bindsym $super+Shift+1 move container to workspace 1
+bindsym $super+Shift+2 move container to workspace 2
+bindsym $super+Shift+3 move container to workspace 3
+bindsym $super+Shift+4 move container to workspace 4 
+bindsym $super+Shift+5 move container to workspace 5
+bindsym $super+Shift+6 move container to workspace 6
+
+workspace 1 output HDMI-A-0
+workspace 2 output DisplayPort-0
+workspace 3 output HDMI-A-0
+workspace 4 output HDMI-A-0
+workspace 5 output HDMI-A-0
+workspace 6 output HDMI-A-0
+
+for_window [class="Jack_mixer"] move container to workspace 4
+for_window [class="qpwgraph"] move container to workspace 4
+for_window [class="Discord"] move container to workspace 5
+for_window [title="CoolerControl — Mozilla Firefox"] move container to workspace 3
+for_window [class="keepassxc"] move container to workspace 6
+for_window [class="openrgb"] move container to workspace 6
